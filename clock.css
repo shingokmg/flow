@@ -1,0 +1,180 @@
+.panel-clock {
+  --clock-indent: 56px;
+  display: grid;
+  padding: 24px 28px 14px 24px;
+  position: relative;
+}
+
+.clock-panel-main {
+  display: grid;
+  align-content: center;
+  min-height: 100%;
+  padding-top: 2px;
+  padding-left: var(--clock-indent);
+  padding-bottom: 0;
+}
+
+.clock-block {
+  display: grid;
+  gap: 16px;
+  max-width: 560px;
+}
+
+.clock-mainline {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-left: -8px;
+}
+
+.clock-hours-minutes {
+  font-size: clamp(4.8rem, 8vw, 7.6rem);
+  line-height: 0.88;
+  font-weight: 600;
+  letter-spacing: -0.07em;
+  font-variant-numeric: tabular-nums;
+}
+
+.clock-seconds {
+  padding-top: 10px;
+  font-family: "Roboto Mono", monospace;
+  font-size: clamp(1rem, 1.8vw, 1.45rem);
+  color: var(--accent-strong);
+  font-variant-numeric: tabular-nums;
+  transition: opacity 180ms ease;
+}
+
+.clock-seconds.is-hidden {
+  opacity: 0;
+}
+
+.clock-secondary {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 22px;
+  max-width: 100%;
+}
+
+.clock-date {
+  margin: 0;
+  color: rgba(242, 244, 241, 0.9);
+  font-size: 0.92rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.weather-line {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.weather-line:hover,
+.weather-line:focus-visible {
+  color: rgba(242, 244, 241, 0.82);
+}
+
+.weather-icon {
+  width: 16px;
+  height: 16px;
+  color: var(--accent-strong);
+}
+
+.weather-icon svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.theme-strip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: flex-start;
+  position: static;
+  max-width: none;
+  margin-top: 4px;
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.swatch {
+  display: block;
+  flex: 0 0 16px;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  line-height: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: var(--swatch, var(--accent));
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.swatch[data-theme="forest"] { --swatch: #5f9474; }
+.swatch[data-theme="amber"] { --swatch: #c29436; }
+.swatch[data-theme="brick"] { --swatch: #b26757; }
+.swatch[data-theme="blue"] { --swatch: #5d8dbe; }
+.swatch[data-theme="gray"] { --swatch: #8e969d; }
+
+.swatch.is-active {
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.08);
+}
+
+@media (max-width: 1180px), (max-height: 860px) {
+  .clock-panel-main {
+    min-height: auto;
+    padding-bottom: 0;
+  }
+
+  .theme-strip {
+    margin-top: 4px;
+  }
+}
+
+@media (max-width: 640px) {
+  .clock-secondary {
+    gap: 10px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: auto;
+  }
+
+  .clock-panel-main {
+    padding-left: 0;
+  }
+
+  .clock-block,
+  .theme-strip {
+    max-width: none;
+    width: auto;
+    padding-left: 0;
+  }
+
+  .theme-strip {
+    position: static;
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+}

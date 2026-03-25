@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>flow | Minimal Pomodoro Timer and Ivy Lee-Style Task Manager</title>
+    <meta
+      name="description"
+      content="A minimal Pomodoro timer and Ivy Lee-style task manager for focused work. No sign-ups, no cloud sync. Everything runs locally in your browser."
+    />
+    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+    <link rel="canonical" href="https://flow.shingokmg.com/" />
+    <meta property="og:title" content="flow | Minimal Pomodoro Timer and Ivy Lee-Style Task Manager" />
+    <meta
+      property="og:description"
+      content="A minimal Pomodoro timer and Ivy Lee-style task manager for focused work. No sign-ups, no cloud sync. Everything runs locally in your browser."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="flow" />
+    <meta property="og:url" content="https://flow.shingokmg.com/" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="flow | Minimal Pomodoro Timer and Ivy Lee-Style Task Manager" />
+    <meta
+      name="twitter:description"
+      content="A minimal Pomodoro timer and Ivy Lee-style task manager for focused work. No sign-ups, no cloud sync. Everything runs locally in your browser."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Roboto+Mono:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./layout.css" />
+    <link rel="stylesheet" href="./clock.css" />
+    <link rel="stylesheet" href="./timer.css" />
+    <link rel="stylesheet" href="./tasks.css" />
+    <link rel="stylesheet" href="./seo-footer.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "flow",
+        "applicationCategory": "ProductivityApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires JavaScript",
+        "description": "A minimal Pomodoro timer and Ivy Lee-style task manager for focused work. No sign-ups, no cloud sync. Everything runs locally in your browser.",
+        "url": "https://flow.shingokmg.com/",
+        "isAccessibleForFree": true,
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "sameAs": [
+          "https://github.com/shingokmg/flow"
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <main class="layout">
+      <div class="layout-left">
+        <section class="panel panel-clock" data-panel="clock">
+          <div class="clock-panel-main">
+            <div class="clock-block">
+              <div class="clock-mainline">
+                <time id="clock-hours-minutes" class="clock-hours-minutes" aria-live="polite"
+                  >00:00</time
+                >
+                <time id="clock-seconds" class="clock-seconds" aria-live="polite">00</time>
+              </div>
+              <div class="clock-secondary">
+                <p id="clock-date" class="clock-date">0000-00-00 WED</p>
+                <button
+                  id="weather-line"
+                  class="weather-line"
+                  type="button"
+                  aria-live="polite"
+                  aria-label="Weather for Tokyo. Click to change city."
+                >
+                  <span id="weather-icon" class="weather-icon" aria-hidden="true"></span>
+                  <span id="weather-text">--°C Tokyo</span>
+                </button>
+              </div>
+            </div>
+            <div class="theme-strip" role="group" aria-label="Accent color">
+              <button class="swatch is-active" data-theme="forest" type="button" aria-label="Forest"></button>
+              <button class="swatch" data-theme="amber" type="button" aria-label="Amber"></button>
+              <button class="swatch" data-theme="brick" type="button" aria-label="Brick"></button>
+              <button class="swatch" data-theme="blue" type="button" aria-label="Blue"></button>
+              <button class="swatch" data-theme="gray" type="button" aria-label="Gray"></button>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel panel-timer" data-panel="timer">
+          <div class="timer-meta">
+            <p class="mode-pill">Pomodoro Timer</p>
+          </div>
+
+          <div class="timer-panel-main">
+            <button id="toggle-timer" class="timer-shell timer-shell-button" type="button" aria-label="Start timer">
+              <div class="timer-ring">
+                <span class="timer-display-wrap">
+                  <span id="timer-display" class="timer-display">25</span>
+                  <span id="timer-seconds" class="timer-seconds" aria-live="polite"></span>
+                </span>
+              </div>
+            </button>
+          </div>
+
+          <div class="timer-panel-foot timer-mode-switch" role="group" aria-label="Timer mode">
+            <button id="set-work-mode" class="button button-quiet mode-button" type="button">Work</button>
+            <button id="set-break-mode" class="button button-quiet mode-button" type="button">Break</button>
+          </div>
+        </section>
+      </div>
+
+      <section class="panel panel-tasks" data-panel="tasks">
+        <p class="ivy-note">Write down today’s six most important tasks, put them in order, and work from the top.</p>
+
+        <ul id="ivy-list" class="ivy-list" aria-live="polite"></ul>
+
+        <div class="tasks-foot">
+          <button id="copy-log" class="button button-quiet" type="button">Copy Log</button>
+        </div>
+      </section>
+
+      <button
+        class="layout-cue"
+        id="scroll-to-copy"
+        type="button"
+        aria-label="Scroll to more information"
+      >
+        <svg viewBox="0 0 64 20" aria-hidden="true">
+          <path d="M6 4.5 32 15.5 58 4.5"></path>
+        </svg>
+      </button>
+    </main>
+
+    <section class="site-copy" aria-labelledby="site-copy-title">
+      <div class="site-copy-intro">
+        <p class="site-copy-kicker">Minimal focus tool</p>
+        <h1 id="site-copy-title"><span class="brand-word">flow</span> is a minimal Pomodoro timer and Ivy Lee-style task manager for focused work.</h1>
+        <p class="site-copy-lead">
+          flow is a beautifully constrained focus surface for deciding less and doing the next important thing. No sign-ups, no cloud sync. Everything runs locally in your browser to keep your tasks private and your mind clear.
+        </p>
+        <p class="site-copy-links">
+          <a
+            class="site-copy-link"
+            href="https://github.com/shingokmg/flow"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Source on GitHub
+          </a>
+        </p>
+      </div>
+
+      <div class="site-copy-grid">
+        <section class="site-copy-card" aria-labelledby="site-copy-method">
+          <h2 id="site-copy-method">Work through the day with fewer decisions</h2>
+          <p>
+            Write down today’s six most important tasks, put them in order, and work from the top. The interface is built to reduce choice at the moment of action, so you can stay focused on the next important task instead of reorganizing your list all day.
+          </p>
+        </section>
+
+        <section class="site-copy-card" aria-labelledby="site-copy-timer">
+          <h2 id="site-copy-timer">A quiet 25/5 Pomodoro timer</h2>
+          <p>
+            flow includes a minimal 25 minute work timer and a 5 minute break timer. The timer stays visible, simple, and readable, helping you keep a steady rhythm without turning your workspace into a dashboard.
+          </p>
+        </section>
+
+        <section class="site-copy-card" aria-labelledby="site-copy-private">
+          <h2 id="site-copy-private">Private by default</h2>
+          <p>
+            Tasks, timing, and daily logs stay in your browser with local storage. There is no account system, no sync layer, and no remote database. You can use flow instantly and keep your work data on your own device.
+          </p>
+        </section>
+      </div>
+    </section>
+
+    <footer class="site-footer" aria-label="Site footer">
+      <p class="site-footer-mark">
+        <span>flow by </span>
+        <a
+          class="site-footer-link"
+          href="https://www.shingokmg.com"
+          target="_blank"
+          rel="noreferrer"
+        >
+          shingokmg
+        </a>
+      </p>
+    </footer>
+
+    <template id="ivy-template">
+      <li class="ivy-item" draggable="true">
+        <div class="ivy-row">
+          <div class="ivy-tools">
+            <button class="drag-handle icon-button" type="button" aria-label="Reorder">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="8" cy="7" r="1.2"></circle>
+                <circle cx="8" cy="12" r="1.2"></circle>
+                <circle cx="8" cy="17" r="1.2"></circle>
+                <circle cx="16" cy="7" r="1.2"></circle>
+                <circle cx="16" cy="12" r="1.2"></circle>
+                <circle cx="16" cy="17" r="1.2"></circle>
+              </svg>
+            </button>
+            <div class="ivy-move" aria-label="Move task">
+              <button class="ivy-move-up icon-button" type="button" aria-label="Move up">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 6.5v11"></path>
+                  <path d="M7.5 11 12 6.5 16.5 11"></path>
+                </svg>
+              </button>
+              <button class="ivy-move-down icon-button" type="button" aria-label="Move down">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 6.5v11"></path>
+                  <path d="M7.5 13 12 17.5 16.5 13"></path>
+                </svg>
+              </button>
+            </div>
+            <button class="check-button ivy-done icon-button" type="button" aria-label="Done">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M7 12.5 10.2 15.7 17 8.8"></path>
+              </svg>
+            </button>
+            <button class="ivy-toggle icon-button" type="button" aria-label="Start">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M9 7.5v9l7-4.5Z"></path>
+              </svg>
+            </button>
+          </div>
+          <div class="ivy-copy">
+            <input class="ivy-title-input" type="text" maxlength="120" />
+            <p class="ivy-meta"></p>
+          </div>
+          <div class="ivy-actions">
+            <button class="icon-button ivy-delete" type="button" aria-label="Delete">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M6 7.5h12"></path>
+                <path d="M9.5 7.5V5.8h5V7.5"></path>
+                <path d="M9 10.5v6"></path>
+                <path d="M15 10.5v6"></path>
+                <path d="M8 7.5l.6 10a1 1 0 0 0 1 .9h4.8a1 1 0 0 0 1-.9l.6-10"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </li>
+    </template>
+
+    <script src="./clock-weather.js"></script>
+    <script src="./timer.js"></script>
+    <script src="./tasks.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>

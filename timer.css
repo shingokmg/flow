@@ -1,0 +1,145 @@
+.panel-timer {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 18px;
+  padding: 22px 24px 20px;
+  aspect-ratio: 1 / 1;
+}
+
+.panel-timer.is-attention {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02)),
+    color-mix(in srgb, var(--accent) 28%, var(--panel));
+  border-color: color-mix(in srgb, var(--accent-strong) 64%, var(--line));
+  box-shadow:
+    0 24px 80px rgba(0, 0, 0, 0.34),
+    0 0 0 1px color-mix(in srgb, var(--accent-strong) 28%, transparent),
+    0 0 56px color-mix(in srgb, var(--accent-strong) 28%, transparent);
+}
+
+.panel-timer.is-attention .timer-ring {
+  background:
+    radial-gradient(circle, #0d100f 0 63%, transparent 63% 100%),
+    radial-gradient(circle, transparent 0 74%, color-mix(in srgb, var(--accent-strong) 14%, var(--bg-soft)) 74% 76.2%, transparent 76.2% 100%),
+    conic-gradient(var(--accent-strong) var(--progress, 0deg), color-mix(in srgb, var(--accent-strong) 34%, var(--ring-track)) 0deg);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--accent-strong) 22%, transparent),
+    0 0 42px color-mix(in srgb, var(--accent-strong) 24%, transparent);
+}
+
+.timer-panel-main {
+  display: grid;
+  align-content: center;
+  gap: 16px;
+}
+
+.timer-panel-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.timer-mode-switch {
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.timer-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  opacity: 1;
+}
+
+.mode-pill {
+  margin: 0;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 0.76rem;
+  color: color-mix(in srgb, var(--text) 88%, var(--accent-strong));
+}
+
+.timer-shell {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.timer-shell-button {
+  padding: 0;
+  border: 0;
+  border-radius: 28px;
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.timer-shell-button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+
+.timer-ring {
+  display: grid;
+  place-items: center;
+  width: min(100%, 292px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, #0d100f 0 63%, transparent 63% 100%),
+    radial-gradient(circle, transparent 0 74%, var(--bg-soft) 74% 76.2%, transparent 76.2% 100%),
+    conic-gradient(var(--accent-strong) var(--progress, 0deg), var(--ring-track) 0deg);
+}
+
+.timer-display {
+  font-family: var(--font-sans);
+  font-size: clamp(3rem, 6vw, 4.35rem);
+  line-height: 1;
+  font-weight: 580;
+  letter-spacing: -0.06em;
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.18);
+}
+
+.timer-display-wrap {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.timer-seconds {
+  padding-top: 4px;
+  font-family: "Roboto Mono", monospace;
+  font-size: clamp(0.95rem, 1.5vw, 1.3rem);
+  color: var(--accent-strong);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.mode-button {
+  min-height: 32px;
+  padding: 0 12px;
+  color: var(--muted);
+  font-size: 0.84rem;
+}
+
+.mode-button.is-active {
+  border-color: transparent;
+  background: var(--accent);
+  color: var(--text);
+}
+
+@media (max-width: 640px) {
+  .panel-timer {
+    aspect-ratio: auto;
+    min-height: 420px;
+  }
+
+  .timer-ring {
+    width: min(100%, 260px);
+  }
+}
