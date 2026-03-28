@@ -117,7 +117,9 @@
       </div>
 
       <section class="panel panel-tasks" data-panel="tasks">
-        <p class="ivy-note">Write down today’s six most important tasks, put them in order, and work from the top.</p>
+        <div class="tasks-meta">
+          <p class="mode-pill">Today's Six</p>
+        </div>
 
         <ul id="ivy-list" class="ivy-list" aria-live="polite"></ul>
 
@@ -238,6 +240,7 @@
           <div class="ivy-copy">
             <input class="ivy-title-input" type="text" maxlength="120" />
             <p class="ivy-meta"></p>
+            <p class="ivy-inline-note" hidden>Write down today’s six most important tasks, put them in order, and work from the top.</p>
           </div>
           <div class="ivy-actions">
             <button class="icon-button ivy-delete" type="button" aria-label="Delete">

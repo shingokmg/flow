@@ -2,6 +2,8 @@ const PLAY_ICON =
   '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 7.5v9l7-4.5Z"></path></svg>';
 const PAUSE_ICON =
   '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 7.5v9"></path><path d="M14.5 7.5v9"></path></svg>';
+const IVY_GUIDANCE_COPY =
+  "Write down today’s six most important tasks, put them in order, and work from the top.";
 
 function createTasksController({ state, els, saveState, ivyLimit, rotateIvyDayIfNeeded }) {
   let draggedTaskId = null;
@@ -223,6 +225,7 @@ function createTasksController({ state, els, saveState, ivyLimit, rotateIvyDayIf
       const moveDown = fragment.querySelector(".ivy-move-down");
       const titleInput = fragment.querySelector(".ivy-title-input");
       const meta = fragment.querySelector(".ivy-meta");
+      const inlineNote = fragment.querySelector(".ivy-inline-note");
       const toggle = fragment.querySelector(".ivy-toggle");
       const del = fragment.querySelector(".ivy-delete");
 
@@ -231,6 +234,7 @@ function createTasksController({ state, els, saveState, ivyLimit, rotateIvyDayIf
         titleInput.value = task.title;
         titleInput.placeholder = `Task ${index + 1}`;
         meta.textContent = buildTaskMeta(task);
+        inlineNote.hidden = true;
         const active = isTaskActive(task);
         toggle.innerHTML = active ? PAUSE_ICON : PLAY_ICON;
         toggle.setAttribute("aria-label", active ? "Pause" : "Start");
@@ -309,6 +313,8 @@ function createTasksController({ state, els, saveState, ivyLimit, rotateIvyDayIf
         titleInput.placeholder = `Task ${index + 1}`;
         titleInput.value = isNextSlot ? state.ivy.draftTitle : "";
         titleInput.disabled = !isNextSlot;
+        inlineNote.hidden = !isNextSlot;
+        inlineNote.textContent = IVY_GUIDANCE_COPY;
         handle.hidden = true;
         moveGroup.hidden = true;
         meta.hidden = true;
@@ -339,6 +345,13 @@ function createTasksController({ state, els, saveState, ivyLimit, rotateIvyDayIf
       }
 
       els.ivyList.appendChild(fragment);
+    }
+
+    if (state.ivy.tasks.length >= ivyLimit) {
+      const trailingNote = document.createElement("p");
+      trailingNote.className = "ivy-note-tail";
+      trailingNote.textContent = IVY_GUIDANCE_COPY;
+      els.ivyList.appendChild(trailingNote);
     }
   }
 
